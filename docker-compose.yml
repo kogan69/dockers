@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  memsql:
+    image: memsql/cluster-in-a-box:latest
+    ports:
+      - "3306:3306"
+      - "8090:8080"
+    environment:
+      LICENSE_KEY: ${SINGLE_STORE_DB_LICENSE_KEY}
+      ROOT_PASSWORD: 'password'
+      START_AFTER_INIT: 'Y'
+    logging:
+      options:
+        max-size: "200k"
+        max-file: "10"
+  pg:
+    image: pg
+    build:
+      context: ./
+      dockerfile: postgres/Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "Jopa1234"
+
+
+
